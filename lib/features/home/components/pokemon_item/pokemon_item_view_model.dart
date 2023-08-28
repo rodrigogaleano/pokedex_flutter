@@ -7,5 +7,11 @@ class PokemonItemViewModel extends PokemonItemViewModelProtocol {
   PokemonItemViewModel({required this.pokemon});
 
   @override
-  String get name => pokemon.name;
+  String get name => pokemon.name.split(' ').first;
+
+  @override
+  String get imagePath => pokemon.imagePath;
+
+  @override
+  String get number => pokemon.id.toString().padLeft(3, '0');
 }

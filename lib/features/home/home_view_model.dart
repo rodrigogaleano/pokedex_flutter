@@ -39,7 +39,6 @@ class HomeViewModel extends HomeViewProtocol {
 
   void _setLoading(bool loadingStatus) {
     _isLoading = loadingStatus;
-    print('Loading: $_isLoading');
     notifyListeners();
   }
 }

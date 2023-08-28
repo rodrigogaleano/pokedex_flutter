@@ -15,8 +15,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: MobileRouter.routes,
       theme: AppThemes.theme,
+      routes: MobileRouter.routes,
+      debugShowCheckedModeBanner: false,
       initialRoute: MobileRouter.initialRoute,
       supportedLocales: Localization.supportedLocales,
       localizationsDelegates: Localization.localizationsDelegates,

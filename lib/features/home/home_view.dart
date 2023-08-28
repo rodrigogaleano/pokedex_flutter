@@ -22,7 +22,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: AnimatedBuilder(
             animation: viewModel,
             builder: (_, __) {
@@ -36,7 +36,7 @@ class HomeView extends StatelessWidget {
 
   Widget _bodyWidget(l10n) {
     if (viewModel.isLoading) {
-      return const CircularProgressIndicator();
+      return const Center(child: CircularProgressIndicator());
     }
 
     return CustomScrollView(
@@ -46,23 +46,25 @@ class HomeView extends StatelessWidget {
             l10n.appTitle,
             style: AppFonts.robotoBold(32, AppColors.black),
           ),
-          floating: true,
           centerTitle: false,
           backgroundColor: AppColors.lightBlue,
         ),
-        SliverGrid(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-          ),
-          delegate: SliverChildBuilderDelegate(
-            childCount: viewModel.pokemonsViewModels.length,
-            (_, index) {
-              final pokemonItemViewModel = viewModel.pokemonsViewModels[index];
+        SliverPadding(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          sliver: SliverGrid(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 12,
+              crossAxisSpacing: 12,
+            ),
+            delegate: SliverChildBuilderDelegate(
+              childCount: viewModel.pokemonsViewModels.length,
+              (_, index) {
+                final pokemonItemViewModel = viewModel.pokemonsViewModels[index];
 
-              return PokemonItemView(viewModel: pokemonItemViewModel);
-            },
+                return PokemonItemView(viewModel: pokemonItemViewModel);
+              },
+            ),
           ),
         )
       ],
