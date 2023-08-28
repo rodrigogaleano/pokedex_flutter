@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../style/app_assets.dart';
+
 class CachedImage extends StatelessWidget {
   final String url;
   final double? width;
@@ -30,7 +32,14 @@ class CachedImage extends StatelessWidget {
           ),
         );
       },
-      // TODO: Implementar placeholder de loading e error
+      errorWidget: (_, __, ___) {
+        return Image.asset(
+          AppAssets.icPlaceholder,
+          width: width,
+          height: height,
+          fit: BoxFit.cover,
+        );
+      },
     );
   }
 }

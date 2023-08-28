@@ -42,6 +42,9 @@ flutter:
   generate: true
   uses-material-design: true
 
+  assets:
+    - assets/images/
+
 # Splash
 flutter_native_splash:
   android: true
