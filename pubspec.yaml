@@ -20,6 +20,8 @@ dependencies:
   # UI
   cupertino_icons: ^1.0.2
 
+  flutter_native_splash: ^2.3.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -29,3 +31,10 @@ dev_dependencies:
 flutter:
   generate: true
   uses-material-design: true
+
+# Splash
+flutter_native_splash:
+  android: true
+  ios: true
+  color: "#ffffff"
+  image: "assets/images/ic_logo.png"
