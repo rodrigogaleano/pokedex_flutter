@@ -62,7 +62,10 @@ class HomeView extends StatelessWidget {
               (_, index) {
                 final pokemonItemViewModel = viewModel.pokemonsViewModels[index];
 
-                return PokemonItemView(viewModel: pokemonItemViewModel);
+                return PokemonItemView(
+                  viewModel: pokemonItemViewModel,
+                  pokemonId: index + 1,
+                );
               },
             ),
           ),

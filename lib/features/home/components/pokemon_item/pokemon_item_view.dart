@@ -6,14 +6,18 @@ import '../../../../support/style/app_fonts.dart';
 
 abstract class PokemonItemViewModelProtocol {
   String get name;
-  String get number;
   String get imagePath;
 }
 
 class PokemonItemView extends StatelessWidget {
   final PokemonItemViewModelProtocol viewModel;
+  final int pokemonId;
 
-  const PokemonItemView({required this.viewModel, super.key});
+  const PokemonItemView({
+    required this.viewModel,
+    required this.pokemonId,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class PokemonItemView extends StatelessWidget {
         children: [
           Expanded(
             child: CachedImage(
-              url: viewModel.imagePath,
+              url: '${viewModel.imagePath}$pokemonId.png',
             ),
           ),
           const SizedBox(height: 8),
@@ -38,7 +42,7 @@ class PokemonItemView extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           Text(
-            viewModel.number,
+            pokemonId.toString().padLeft(3, '0'),
             style: AppFonts.robotoLight(16, AppColors.black),
           ),
         ],

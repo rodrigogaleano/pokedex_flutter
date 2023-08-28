@@ -2,6 +2,8 @@ class ApiHost {
   ApiHost._();
 
   static String get baseURL {
-    return 'https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master';
+    return 'https://pokeapi.co/api/$apiVersion';
   }
+
+  static String get apiVersion => '/v2';
 }

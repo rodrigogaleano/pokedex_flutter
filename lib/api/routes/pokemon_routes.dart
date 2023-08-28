@@ -2,16 +2,16 @@ import '../setup/api_provider.dart';
 import '../setup/endpoint.dart';
 
 abstract class PokemonRoutesProtocol {
-  void getPokemons({Success? success, Failure? failure});
+  void getAllPokemons({Success? success, Failure? failure});
 }
 
 class PokemonRoutes extends PokemonRoutesProtocol {
   final apiProvider = ApiProvider();
 
   @override
-  void getPokemons({Success? success, Failure? failure}) {
+  void getAllPokemons({Success? success, Failure? failure}) {
     final endpoint = Endpoint(
-      path: '/pokedex.json',
+      path: '/pokemon',
       method: 'GET',
     );
 

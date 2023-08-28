@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import '../../../api/routes/pokemon_routes.dart';
 import '../../../models/pokemon.dart';
 import '../../../models/server_error.dart';
@@ -18,10 +16,10 @@ class GetPokemonsUseCase extends GetPokemonsUseCaseProtocol {
 
   @override
   void execute({Success? success, Failure? failure}) {
-    route.getPokemons(
+    route.getAllPokemons(
       success: (response) {
         try {
-          final pokemons = Pokemon.fromMaps(jsonDecode(response)['pokemon']);
+          final pokemons = Pokemon.fromMaps(response['results']);
           success?.call(pokemons);
         } on Error catch (error) {
           failure?.call(error.internalError());
