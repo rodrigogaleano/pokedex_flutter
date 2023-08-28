@@ -7,6 +7,8 @@ import 'components/pokemon_item/pokemon_item_view.dart';
 
 abstract class HomeViewModelProtocol extends ChangeNotifier {
   bool get isLoading;
+  bool get isLoadingMore;
+  ScrollController get scrollController;
   List<PokemonItemViewModelProtocol> get pokemonsViewModels;
 }
 
@@ -17,8 +19,6 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = Localize.instance.l10n;
-
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -26,7 +26,7 @@ class HomeView extends StatelessWidget {
           child: AnimatedBuilder(
             animation: viewModel,
             builder: (_, __) {
-              return _bodyWidget(l10n);
+              return _bodyWidget;
             },
           ),
         ),
@@ -34,12 +34,15 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _bodyWidget(l10n) {
+  Widget get _bodyWidget {
+    final l10n = Localize.instance.l10n;
+
     if (viewModel.isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
 
     return CustomScrollView(
+      controller: viewModel.scrollController,
       slivers: [
         SliverAppBar(
           title: Text(
@@ -69,8 +72,22 @@ class HomeView extends StatelessWidget {
               },
             ),
           ),
-        )
+        ),
+        SliverToBoxAdapter(child: _loadingMore),
       ],
     );
+  }
+
+  Widget get _loadingMore {
+    if (viewModel.isLoadingMore) {
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    return const SizedBox.shrink();
   }
 }
