@@ -6,7 +6,7 @@ import 'components/pokemon_item/pokemon_item_view_model.dart';
 import 'home_view_controller.dart';
 import 'use_cases/get_pokemons_use_case.dart';
 
-class HomeViewModel extends HomeViewProtocol {
+class HomeViewModel extends HomeViewProtocol implements PokemonItemDelegate {
   int _currentPage = 0;
   bool _isLoading = false;
   String _errorMessage = '';
@@ -36,7 +36,7 @@ class HomeViewModel extends HomeViewProtocol {
   @override
   List<PokemonItemViewModelProtocol> get pokemonsViewModels {
     return _pokemons.map((pokemon) {
-      return PokemonItemViewModel(pokemon: pokemon);
+      return PokemonItemViewModel(pokemon: pokemon, delegate: this);
     }).toList();
   }
 
@@ -49,6 +49,11 @@ class HomeViewModel extends HomeViewProtocol {
       success: (pokemons) => _handleGetPokemonsSuccess(pokemons),
       failure: (error) => _handleGetPokemonsFailure(error.description),
     );
+  }
+
+  @override
+  void didTapPokemon(int pokemonId) {
+    onTapPokemon?.call(pokemonId);
   }
 
   void _handleGetPokemonsSuccess(pokemons) {
