@@ -1,4 +1,5 @@
 import '../../../../models/pokemon.dart';
+import '../../../../support/extensions/string.dart';
 import 'pokemon_item_view.dart';
 
 class PokemonItemViewModel extends PokemonItemViewModelProtocol {
@@ -9,7 +10,7 @@ class PokemonItemViewModel extends PokemonItemViewModelProtocol {
   });
 
   @override
-  String get name => pokemon.name.split(' ').first;
+  String get name => pokemon.name.formattedName();
 
   @override
   String get imagePath => pokemon.imagePath;
