@@ -24,8 +24,6 @@ class _HomeViewControllerState extends State<HomeViewController> {
 
   @override
   Widget build(BuildContext context) {
-    return HomeView(
-      viewModel: widget.viewModel,
-    );
+    return HomeView(viewModel: widget.viewModel);
   }
 }

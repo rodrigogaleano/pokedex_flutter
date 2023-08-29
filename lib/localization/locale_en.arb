@@ -1,0 +1,11 @@
+{
+    "@@locale": "en",
+    
+    "appTitle": "Pokédex",
+
+    "mappingFailureError": "An error occurred in the request. We are working on it!",
+    "requestError": "An unexpected error occurred with our servers.",
+    "timeoutError": "Request timeout, please try again later.",
+
+    "pokemonsEmptyLabel": "No Pokémon found"
+}

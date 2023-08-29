@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../support/style/app_assets.dart';
 import '../../support/style/app_colors.dart';
 import '../../support/style/app_fonts.dart';
 import '../../support/utils/localize.dart';
@@ -41,7 +42,7 @@ class HomeView extends StatelessWidget {
                     centerTitle: false,
                     backgroundColor: AppColors.lightBlue,
                   ),
-                  _bodyWidget,
+                  _bodyWidget(l10n),
                   SliverToBoxAdapter(child: _loadingMoreWidget),
                 ],
               );
@@ -52,26 +53,44 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget get _bodyWidget {
+  Widget _bodyWidget(l10n) {
     if (viewModel.isLoading) {
-      // TODO: Criar um componente para placeholder de loading
       return const HomeLoadingPlaceholder();
     }
 
     if (viewModel.errorMessage.isNotEmpty) {
-      // TODO: Criar um componente para placeholder de erro
-      return SliverToBoxAdapter(
-        child: Center(
-          child: Text(viewModel.errorMessage),
+      return SliverFillRemaining(
+        hasScrollBody: false,
+        child: Column(
+          children: [
+            const Spacer(),
+            Text(
+              viewModel.errorMessage,
+              style: AppFonts.robotoSemiBold(16, AppColors.black),
+            ),
+            const Spacer(),
+          ],
         ),
       );
     }
 
     if (viewModel.pokemonsViewModels.isEmpty) {
-      // TODO: Criar um componente para placeholder de vazio
-      return const SliverToBoxAdapter(
-        child: Center(
-          child: Text('Não há nada no momento :('),
+      return SliverFillRemaining(
+        hasScrollBody: false,
+        child: Column(
+          children: [
+            const Spacer(),
+            Image.asset(
+              AppAssets.icPlaceholder,
+              width: 96,
+              height: 96,
+            ),
+            Text(
+              l10n.pokemonsEmptyLabel,
+              style: AppFonts.robotoSemiBold(16, AppColors.black),
+            ),
+            const Spacer(),
+          ],
         ),
       );
     }
