@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../support/style/app_assets.dart';
+import '../../support/components/screen_placeholder.dart';
 import '../../support/style/app_colors.dart';
 import '../../support/style/app_fonts.dart';
 import '../../support/utils/localize.dart';
@@ -59,40 +59,11 @@ class HomeView extends StatelessWidget {
     }
 
     if (viewModel.errorMessage.isNotEmpty) {
-      return SliverFillRemaining(
-        hasScrollBody: false,
-        child: Column(
-          children: [
-            const Spacer(),
-            Text(
-              viewModel.errorMessage,
-              style: AppFonts.robotoSemiBold(16, AppColors.black),
-            ),
-            const Spacer(),
-          ],
-        ),
-      );
+      return ScreenPlaceholder(label: viewModel.errorMessage);
     }
 
     if (viewModel.pokemonsViewModels.isEmpty) {
-      return SliverFillRemaining(
-        hasScrollBody: false,
-        child: Column(
-          children: [
-            const Spacer(),
-            Image.asset(
-              AppAssets.icPlaceholder,
-              width: 96,
-              height: 96,
-            ),
-            Text(
-              l10n.pokemonsEmptyLabel,
-              style: AppFonts.robotoSemiBold(16, AppColors.black),
-            ),
-            const Spacer(),
-          ],
-        ),
-      );
+      return ScreenPlaceholder(label: l10n.pokemonsEmptyLabel);
     }
 
     return SliverPadding(
