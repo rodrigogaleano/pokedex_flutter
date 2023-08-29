@@ -8,6 +8,11 @@ abstract class PokemonRoutesProtocol {
     Success? success,
     Failure? failure,
   });
+  void getPokemonDetails({
+    required int pokemonId,
+    Success? success,
+    Failure? failure,
+  });
 }
 
 class PokemonRoutes extends PokemonRoutesProtocol {
@@ -27,6 +32,20 @@ class PokemonRoutes extends PokemonRoutesProtocol {
         'offset': offset.toString(),
         'limit': limit.toString(),
       },
+    );
+
+    apiProvider.request(endpoint: endpoint, success: success, failure: failure);
+  }
+
+  @override
+  void getPokemonDetails({
+    required int pokemonId,
+    Success? success,
+    Failure? failure,
+  }) {
+    final endpoint = Endpoint(
+      path: '/pokemon/$pokemonId',
+      method: 'GET',
     );
 
     apiProvider.request(endpoint: endpoint, success: success, failure: failure);

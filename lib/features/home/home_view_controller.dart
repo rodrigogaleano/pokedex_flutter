@@ -33,7 +33,11 @@ class _HomeViewControllerState extends State<HomeViewController> {
 
   void _bind() {
     widget.viewModel.onTapPokemon = (pokemonId) {
-      Navigator.pushNamed(context, PokemonDetailsFactory.pokemonDetailsRoute);
+      Navigator.pushNamed(
+        context,
+        PokemonDetailsFactory.pokemonDetailsRoute,
+        arguments: pokemonId,
+      );
     };
   }
 }

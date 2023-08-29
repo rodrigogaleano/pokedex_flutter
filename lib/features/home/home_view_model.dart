@@ -1,9 +1,9 @@
 import 'package:flutter/src/widgets/scroll_controller.dart';
 
-import '../../models/pokemon.dart';
 import 'components/pokemon_item/pokemon_item_view.dart';
 import 'components/pokemon_item/pokemon_item_view_model.dart';
 import 'home_view_controller.dart';
+import 'models/pokemon.dart';
 import 'use_cases/get_pokemons_use_case.dart';
 
 class HomeViewModel extends HomeViewProtocol implements PokemonItemDelegate {

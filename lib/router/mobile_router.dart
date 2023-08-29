@@ -11,6 +11,9 @@ class MobileRouter {
     HomeFactory.homeRoute: (_) => HomeFactory.home(),
 
     /// Pokemon Details
-    PokemonDetailsFactory.pokemonDetailsRoute: (_) => PokemonDetailsFactory.pokemonDetails(),
+    PokemonDetailsFactory.pokemonDetailsRoute: (context) {
+      final pokemonId = ModalRoute.of(context)?.settings.arguments as int;
+      return PokemonDetailsFactory.pokemonDetails(pokemonId: pokemonId);
+    },
   };
 }

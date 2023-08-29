@@ -1,5 +1,5 @@
-import '../../../../models/pokemon.dart';
 import '../../../../support/extensions/string.dart';
+import '../../models/pokemon.dart';
 import 'pokemon_item_view.dart';
 
 abstract class PokemonItemDelegate {
