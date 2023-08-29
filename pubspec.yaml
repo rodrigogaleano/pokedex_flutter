@@ -25,11 +25,13 @@ dependencies:
   pretty_dio_logger: ^1.3.1
 
   # UI
+  shimmer: ^3.0.0
   cupertino_icons: ^1.0.2
 
   # Cache
   cached_network_image: ^3.2.3
 
+  # Utils
   flutter_native_splash: ^2.3.2
 
 dev_dependencies:

@@ -7,9 +7,10 @@ import 'home_view_controller.dart';
 import 'use_cases/get_pokemons_use_case.dart';
 
 class HomeViewModel extends HomeViewProtocol {
-  bool _isLoading = false;
-  bool _isLoadingMore = false;
   int _currentPage = 0;
+  bool _isLoading = false;
+  String _errorMessage = '';
+  bool _isLoadingMore = false;
 
   final int _pokemonsPerPage = 20;
   final List<Pokemon> _pokemons = [];
@@ -25,6 +26,9 @@ class HomeViewModel extends HomeViewProtocol {
 
   @override
   bool get isLoadingMore => _isLoadingMore;
+
+  @override
+  String get errorMessage => _errorMessage;
 
   @override
   ScrollController get scrollController => _scrollController;
@@ -43,7 +47,7 @@ class HomeViewModel extends HomeViewProtocol {
       offset: _currentPage * _pokemonsPerPage,
       limit: _pokemonsPerPage,
       success: (pokemons) => _handleGetPokemonsSuccess(pokemons),
-      failure: (error) => _handleGetPokemonsFailure(error),
+      failure: (error) => _handleGetPokemonsFailure(error.description),
     );
   }
 
@@ -56,6 +60,7 @@ class HomeViewModel extends HomeViewProtocol {
 
   void _handleGetPokemonsFailure(error) {
     _setLoading(false);
+    _errorMessage = error;
     _setLoadingMore(false);
   }
 
