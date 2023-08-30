@@ -28,6 +28,17 @@ class PokemonDetailsViewModel extends PokemonDetailsProtocol {
   String get number => _pokemonDetails?.id.toString().padLeft(3, '0') ?? '';
 
   @override
+  String get imagePath => '${_pokemonDetails?.imagePath}$pokemonId.png' ?? '';
+
+  @override
+  List<PokemonTypeItemViewModelProtocol> get pokemonTypeList {
+    return _pokemonDetails?.types?.map((type) {
+          return PokemonTypeItemViewModel(type: type);
+        }).toList() ??
+        [];
+  }
+
+  @override
   void getPokemonDetails() {
     _setLoading(true);
     getPokemonDetailsUseCase.execute(
@@ -51,13 +62,5 @@ class PokemonDetailsViewModel extends PokemonDetailsProtocol {
   void _setLoading(bool loadingStatus) {
     _isLoading = loadingStatus;
     notifyListeners();
-  }
-
-  @override
-  List<PokemonTypeItemViewModelProtocol> get pokemonTypeList {
-    return _pokemonDetails?.types?.map((type) {
-          return PokemonTypeItemViewModel(type: type);
-        }).toList() ??
-        [];
   }
 }

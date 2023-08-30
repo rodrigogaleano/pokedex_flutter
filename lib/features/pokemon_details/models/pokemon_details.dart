@@ -13,4 +13,8 @@ class PokemonDetails {
         height = map['height'],
         weight = map['weight'],
         types = List<PokemonType>.from(map['types'].map((type) => PokemonType.fromMap(type)));
+
+  String get imagePath {
+    return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
+  }
 }

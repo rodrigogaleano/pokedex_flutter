@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../support/style/app_assets.dart';
+import '../../support/components/cached_image.dart';
 import '../../support/style/app_colors.dart';
 import '../../support/style/app_fonts.dart';
 import 'components/pokemon_type_item.dart';
@@ -9,6 +9,7 @@ abstract class PokemonDetailsViewModelProtocol extends ChangeNotifier {
   String get name;
   String get number;
   bool get isLoading;
+  String get imagePath;
   List<PokemonTypeItemViewModelProtocol> get pokemonTypeList;
 
   void didTapBack();
@@ -65,7 +66,7 @@ class PokemonDetailsView extends StatelessWidget {
               color: AppColors.lightBlue02,
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Image.asset(AppAssets.icPlaceholder),
+            child: CachedImage(url: viewModel.imagePath),
           ),
         ),
         SliverPadding(
@@ -76,7 +77,7 @@ class PokemonDetailsView extends StatelessWidget {
               children: [
                 Text(
                   'Sobre',
-                  style: AppFonts.robotoSemiBold(20, AppColors.black),
+                  style: AppFonts.robotoSemiBold(22, AppColors.black),
                 ),
                 Wrap(
                   children: viewModel.pokemonTypeList.map((viewModel) {
