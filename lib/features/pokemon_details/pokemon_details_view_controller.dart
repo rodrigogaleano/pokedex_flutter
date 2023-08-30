@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'pokemon_details_view.dart';
 
-abstract class PokemonDetailsProtocol {
+abstract class PokemonDetailsProtocol extends PokemonDetailsViewModelProtocol {
+  VoidCallback? onTapBack;
+
   void getPokemonDetails();
 }
 
@@ -19,11 +21,18 @@ class _PokemonDetailsViewControllerState extends State<PokemonDetailsViewControl
   @override
   void initState() {
     super.initState();
+    _bind();
     widget.viewModel.getPokemonDetails();
   }
 
   @override
   Widget build(BuildContext context) {
-    return const PokemonDetailsView();
+    return PokemonDetailsView(viewModel: widget.viewModel);
+  }
+
+  void _bind() {
+    widget.viewModel.onTapBack = () {
+      Navigator.pop(context);
+    };
   }
 }

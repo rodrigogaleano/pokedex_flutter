@@ -40,7 +40,6 @@ class HomeView extends StatelessWidget {
                       style: AppFonts.robotoBold(32, AppColors.black),
                     ),
                     centerTitle: false,
-                    backgroundColor: AppColors.lightBlue,
                   ),
                   _bodyWidget(l10n),
                   SliverToBoxAdapter(child: _loadingMoreWidget),
