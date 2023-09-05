@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import '../../support/components/cached_image.dart';
 import '../../support/style/app_colors.dart';
 import '../../support/style/app_fonts.dart';
-import 'components/pokemon_type_item.dart';
+import 'components/pokemon_info_item/pokemon_info_item_view.dart';
+import 'components/pokemon_type_item/pokemon_type_item.dart';
 
 abstract class PokemonDetailsViewModelProtocol extends ChangeNotifier {
   String get name;
   String get number;
   bool get isLoading;
   String get imagePath;
+  String get height;
+  String get weight;
   List<PokemonTypeItemViewModelProtocol> get pokemonTypeList;
 
   void didTapBack();
@@ -76,14 +79,34 @@ class PokemonDetailsView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
+                  // TODO: Colocar no l10n
                   'Sobre',
                   style: AppFonts.robotoSemiBold(22, AppColors.black),
                 ),
+                const SizedBox(height: 8),
                 Wrap(
                   children: viewModel.pokemonTypeList.map((viewModel) {
                     return PokemonTypeItem(viewModel: viewModel);
                   }).toList(),
                 ),
+                const SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    PokemonInfoItem(
+                      icon: Icons.balance,
+                      // TODO: Passar para o l10n
+                      label: 'Peso',
+                      value: viewModel.weight,
+                    ),
+                    PokemonInfoItem(
+                      icon: Icons.height,
+                      // TODO: Passar para o l10n
+                      label: 'Altura',
+                      value: viewModel.height,
+                    ),
+                  ],
+                )
               ],
             ),
           ),

@@ -1,4 +1,5 @@
-import '../models/pokemon_type.dart';
+import '../../../../support/extensions/string.dart';
+import '../../models/pokemon_type.dart';
 import 'pokemon_type_item.dart';
 
 class PokemonTypeItemViewModel extends PokemonTypeItemViewModelProtocol {
@@ -7,5 +8,5 @@ class PokemonTypeItemViewModel extends PokemonTypeItemViewModelProtocol {
   PokemonTypeItemViewModel({required this.type});
 
   @override
-  String get typeName => type.name;
+  String get typeName => type.name.capitalize();
 }

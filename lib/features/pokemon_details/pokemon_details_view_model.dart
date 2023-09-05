@@ -1,6 +1,6 @@
 import '../../support/extensions/string.dart';
-import 'components/pokemon_type_item.dart';
-import 'components/pokemon_type_item_view_model.dart';
+import 'components/pokemon_type_item/pokemon_type_item.dart';
+import 'components/pokemon_type_item/pokemon_type_item_view_model.dart';
 import 'models/pokemon_details.dart';
 import 'pokemon_details_view_controller.dart';
 import 'use_cases/get_pokemon_details_use_case.dart';
@@ -29,6 +29,12 @@ class PokemonDetailsViewModel extends PokemonDetailsProtocol {
 
   @override
   String get imagePath => '${_pokemonDetails?.imagePath}$pokemonId.png' ?? '';
+
+  @override
+  String get height => _pokemonDetails?.convertedHeigh ?? '';
+
+  @override
+  String get weight => _pokemonDetails?.convertedWeight ?? '';
 
   @override
   List<PokemonTypeItemViewModelProtocol> get pokemonTypeList {

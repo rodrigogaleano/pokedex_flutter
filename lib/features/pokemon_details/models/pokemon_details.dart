@@ -2,9 +2,9 @@ import 'pokemon_type.dart';
 
 class PokemonDetails {
   int id;
-  String name;
   int height;
   int weight;
+  String name;
   List<PokemonType>? types;
 
   PokemonDetails.fromMap(Map<dynamic, dynamic> map)
@@ -16,5 +16,13 @@ class PokemonDetails {
 
   String get imagePath {
     return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
+  }
+
+  String get convertedHeigh {
+    return '${height * 10} cm';
+  }
+
+  String get convertedWeight {
+    return '${weight / 10} kg';
   }
 }
