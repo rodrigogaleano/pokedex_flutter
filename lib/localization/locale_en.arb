@@ -7,5 +7,10 @@
     "requestError": "An unexpected error occurred with our servers.",
     "timeoutError": "Request timeout, please try again later.",
 
-    "pokemonsEmptyLabel": "No Pokémon found"
+    "pokemonsEmptyLabel": "No Pokémon found",
+
+    "pokemonTabAboutLabel": "About",
+    "pokemonTabStatsLabel": "Stats",
+    "pokemonDetailsWeightLabel": "Weight",
+    "pokemonDetailsHeightLabel": "Height"
 }

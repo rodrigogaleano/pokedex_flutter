@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../../support/components/cached_image.dart';
 import '../../support/style/app_colors.dart';
 import '../../support/style/app_fonts.dart';
+import '../../support/utils/localize.dart';
 import 'components/pokemon_info_item/pokemon_info_item_view.dart';
+import 'components/pokemon_stat_item/pokemon_stat_item_view.dart';
 import 'components/pokemon_type_item/pokemon_type_item.dart';
 
 abstract class PokemonDetailsViewModelProtocol extends ChangeNotifier {
@@ -14,6 +16,7 @@ abstract class PokemonDetailsViewModelProtocol extends ChangeNotifier {
   String get height;
   String get weight;
   List<PokemonTypeItemViewModelProtocol> get pokemonTypeList;
+  List<PokemonStatItemViewModelProtocol> get pokemonStatList;
 
   void didTapBack();
 }
@@ -25,27 +28,32 @@ class PokemonDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = Localize.instance.l10n;
+
     return Scaffold(
       body: AnimatedBuilder(
-          animation: viewModel,
-          builder: (_, __) {
-            return _bodyWidget;
-          }),
+        animation: viewModel,
+        builder: (_, __) {
+          return _bodyWidget(l10n);
+        },
+      ),
     );
   }
 
-  Widget get _bodyWidget {
+  Widget _bodyWidget(l10n) {
     if (viewModel.isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
       );
     }
 
+    // TODO: Implementar placeholder de erro
+
     return CustomScrollView(
       slivers: [
         SliverAppBar(
           leading: IconButton(
-            onPressed: () => viewModel.didTapBack(),
+            onPressed: viewModel.didTapBack,
             icon: const Icon(Icons.arrow_back_ios),
             color: AppColors.black,
           ),
@@ -72,46 +80,76 @@ class PokemonDetailsView extends StatelessWidget {
             child: CachedImage(url: viewModel.imagePath),
           ),
         ),
-        SliverPadding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          sliver: SliverToBoxAdapter(
+        SliverFillRemaining(
+          child: DefaultTabController(
+            length: 2,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  // TODO: Colocar no l10n
-                  'Sobre',
-                  style: AppFonts.robotoSemiBold(22, AppColors.black),
-                ),
-                const SizedBox(height: 8),
-                Wrap(
-                  children: viewModel.pokemonTypeList.map((viewModel) {
-                    return PokemonTypeItem(viewModel: viewModel);
-                  }).toList(),
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    PokemonInfoItem(
-                      icon: Icons.balance,
-                      // TODO: Passar para o l10n
-                      label: 'Peso',
-                      value: viewModel.weight,
+                TabBar(
+                  tabs: [
+                    Text(
+                      l10n.pokemonDetailsTabAboutLabel,
+                      style: AppFonts.robotoSemiBold(22, AppColors.black),
                     ),
-                    PokemonInfoItem(
-                      icon: Icons.height,
-                      // TODO: Passar para o l10n
-                      label: 'Altura',
-                      value: viewModel.height,
+                    Text(
+                      l10n.pokemonDetailsTabStatsLabel,
+                      style: AppFonts.robotoSemiBold(22, AppColors.black),
                     ),
                   ],
-                )
+                ),
+                Expanded(
+                  child: TabBarView(
+                    children: [
+                      _aboutTabBarView(l10n),
+                      _statTabBarView(),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ],
     );
+  }
+
+  Widget _aboutTabBarView(l10n) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: Column(
+        children: [
+          Wrap(
+            children: viewModel.pokemonTypeList.map((viewModel) {
+              return PokemonTypeItem(viewModel: viewModel);
+            }).toList(),
+          ),
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              PokemonInfoItem(
+                icon: Icons.balance,
+                label: l10n.pokemonDetailsWeightLabel,
+                value: viewModel.weight,
+              ),
+              PokemonInfoItem(
+                icon: Icons.height,
+                label: l10n.pokemonDetailsHeightLabel,
+                value: viewModel.height,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _statTabBarView() {
+    return ListView.builder(itemBuilder: (_, index) {
+      final pokemonStatViewModel = viewModel.pokemonStatList[index];
+
+      return PokemonStatItemView(viewModel: pokemonStatViewModel);
+    });
   }
 }

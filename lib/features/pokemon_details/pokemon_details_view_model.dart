@@ -1,4 +1,6 @@
 import '../../support/extensions/string.dart';
+import 'components/pokemon_stat_item/pokemon_stat_item_view.dart';
+import 'components/pokemon_stat_item/pokemon_stat_item_view_model.dart';
 import 'components/pokemon_type_item/pokemon_type_item.dart';
 import 'components/pokemon_type_item/pokemon_type_item_view_model.dart';
 import 'models/pokemon_details.dart';
@@ -40,6 +42,14 @@ class PokemonDetailsViewModel extends PokemonDetailsProtocol {
   List<PokemonTypeItemViewModelProtocol> get pokemonTypeList {
     return _pokemonDetails?.types?.map((type) {
           return PokemonTypeItemViewModel(type: type);
+        }).toList() ??
+        [];
+  }
+
+  @override
+  List<PokemonStatItemViewModelProtocol> get pokemonStatList {
+    return _pokemonDetails?.stats.map((stat) {
+          return PokemonStatItemViewModel(pokemonStat: stat);
         }).toList() ??
         [];
   }
