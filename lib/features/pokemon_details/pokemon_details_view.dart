@@ -146,10 +146,13 @@ class PokemonDetailsView extends StatelessWidget {
   }
 
   Widget _statTabBarView() {
-    return ListView.builder(itemBuilder: (_, index) {
-      final pokemonStatViewModel = viewModel.pokemonStatList[index];
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (_, index) {
+        final pokemonStatViewModel = viewModel.pokemonStatList[index];
 
-      return PokemonStatItemView(viewModel: pokemonStatViewModel);
-    });
+        return PokemonStatItemView(viewModel: pokemonStatViewModel);
+      },
+    );
   }
 }

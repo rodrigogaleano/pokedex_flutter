@@ -1,3 +1,4 @@
+import '../../../../support/extensions/string.dart';
 import '../../models/pokemon_stat.dart';
 import 'pokemon_stat_item_view.dart';
 
@@ -7,8 +8,8 @@ class PokemonStatItemViewModel extends PokemonStatItemViewModelProtocol {
   PokemonStatItemViewModel({required this.pokemonStat});
 
   @override
-  String get name => pokemonStat.name;
+  String get name => pokemonStat.name.formattedName();
 
   @override
-  int get baseStat => pokemonStat.baseStat;
+  double get statPercentage => pokemonStat.baseStat / 100;
 }

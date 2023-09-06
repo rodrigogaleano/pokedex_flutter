@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract class PokemonStatItemViewModelProtocol {
   String get name;
-  int get baseStat;
+  double get statPercentage;
 }
 
 class PokemonStatItemView extends StatelessWidget {
@@ -12,14 +12,26 @@ class PokemonStatItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(viewModel.name),
-        const SizedBox(width: 20),
-        const Expanded(
-          child: LinearProgressIndicator(value: 0.5),
-        ),
-      ],
+    return LayoutBuilder(
+      builder: (_, constraints) {
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          child: Row(
+            children: [
+              SizedBox(
+                width: constraints.maxWidth * 0.2,
+                child: Text(viewModel.name),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: LinearProgressIndicator(
+                  value: viewModel.statPercentage,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
