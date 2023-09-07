@@ -147,6 +147,7 @@ class PokemonDetailsView extends StatelessWidget {
 
   Widget _statTabBarView() {
     return ListView.builder(
+      itemCount: viewModel.pokemonStatList.length,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (_, index) {
         final pokemonStatViewModel = viewModel.pokemonStatList[index];
