@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../support/components/cached_image.dart';
+import '../../support/components/screen_placeholder.dart';
 import '../../support/style/app_colors.dart';
 import '../../support/style/app_fonts.dart';
 import '../../support/utils/localize.dart';
@@ -11,10 +12,12 @@ import 'components/pokemon_type_item/pokemon_type_item.dart';
 abstract class PokemonDetailsViewModelProtocol extends ChangeNotifier {
   String get name;
   String get number;
-  bool get isLoading;
-  String get imagePath;
   String get height;
   String get weight;
+  bool get isLoading;
+  String get imagePath;
+  String get errorMessage;
+
   List<PokemonTypeItemViewModelProtocol> get pokemonTypeList;
   List<PokemonStatItemViewModelProtocol> get pokemonStatList;
 
@@ -47,7 +50,9 @@ class PokemonDetailsView extends StatelessWidget {
       );
     }
 
-    // TODO: Implementar placeholder de erro
+    if (viewModel.errorMessage.isNotEmpty) {
+      return ScreenPlaceholder(label: viewModel.errorMessage);
+    }
 
     return CustomScrollView(
       slivers: [

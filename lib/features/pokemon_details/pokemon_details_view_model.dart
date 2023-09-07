@@ -24,6 +24,9 @@ class PokemonDetailsViewModel extends PokemonDetailsProtocol {
   bool get isLoading => _isLoading;
 
   @override
+  String get errorMessage => _errorMessage;
+
+  @override
   String get name => _pokemonDetails?.name.formattedName() ?? '';
 
   @override
