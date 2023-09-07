@@ -33,7 +33,7 @@ class PokemonDetailsViewModel extends PokemonDetailsProtocol {
   String get number => _pokemonDetails?.id.toString().padLeft(3, '0') ?? '';
 
   @override
-  String get imagePath => '${_pokemonDetails?.imagePath}$pokemonId.png' ?? '';
+  String get imagePath => '${_pokemonDetails?.imagePath}$pokemonId.gif' ?? '';
 
   @override
   String get height => _pokemonDetails?.convertedHeigh ?? '';

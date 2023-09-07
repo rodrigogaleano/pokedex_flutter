@@ -22,7 +22,7 @@ class HomeLoadingPlaceholder extends StatelessWidget {
             return ShimmerLoadingPlaceholder(
               child: Container(
                 decoration: BoxDecoration(
-                  color: AppColors.lightBlue02,
+                  color: AppColors.lightBlue,
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),

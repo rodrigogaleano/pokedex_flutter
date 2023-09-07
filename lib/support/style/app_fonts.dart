@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class AppFonts {
   AppFonts._();
 
-  static TextStyle robotoLight(double size, Color color) {
+  static TextStyle robotoLight(double size, [Color? color]) {
     return GoogleFonts.roboto(
       color: color,
       fontSize: size,
@@ -12,7 +12,7 @@ class AppFonts {
     );
   }
 
-  static TextStyle robotoNormal(double size, Color color) {
+  static TextStyle robotoNormal(double size, [Color? color]) {
     return GoogleFonts.roboto(
       color: color,
       fontSize: size,
@@ -20,7 +20,7 @@ class AppFonts {
     );
   }
 
-  static TextStyle robotoSemiBold(double size, Color color) {
+  static TextStyle robotoSemiBold(double size, [Color? color]) {
     return GoogleFonts.roboto(
       color: color,
       fontSize: size,
@@ -28,7 +28,7 @@ class AppFonts {
     );
   }
 
-  static TextStyle robotoBold(double size, Color color) {
+  static TextStyle robotoBold(double size, [Color? color]) {
     return GoogleFonts.roboto(
       color: color,
       fontSize: size,

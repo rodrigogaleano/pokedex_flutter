@@ -18,7 +18,7 @@ class PokemonDetails {
         stats = List<PokemonStat>.from(map['stats'].map((stat) => PokemonStat.fromMap(stat)));
 
   String get imagePath {
-    return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
+    return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/';
   }
 
   String get convertedHeigh {

@@ -34,6 +34,7 @@ class PokemonDetailsView extends StatelessWidget {
     final l10n = Localize.instance.l10n;
 
     return Scaffold(
+      backgroundColor: AppColors.darkBlue,
       body: AnimatedBuilder(
         animation: viewModel,
         builder: (_, __) {
@@ -57,61 +58,75 @@ class PokemonDetailsView extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         SliverAppBar(
+          backgroundColor: AppColors.darkBlue,
           leading: IconButton(
             onPressed: viewModel.didTapBack,
             icon: const Icon(Icons.arrow_back_ios),
-            color: AppColors.black,
+            color: AppColors.white,
           ),
           title: Column(
             children: [
               Text(
                 viewModel.name,
-                style: AppFonts.robotoBold(24, AppColors.black),
+                style: AppFonts.robotoBold(24, AppColors.white),
               ),
               Text(
                 viewModel.number,
-                style: AppFonts.robotoNormal(16, AppColors.black),
+                style: AppFonts.robotoNormal(16, AppColors.white),
               ),
             ],
           ),
         ),
         SliverToBoxAdapter(
           child: Container(
-            margin: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: AppColors.lightBlue02,
-              borderRadius: BorderRadius.circular(16),
+            padding: const EdgeInsets.all(20),
+            child: Center(
+              child: CachedImage(
+                url: viewModel.imagePath,
+                width: 128,
+              ),
             ),
-            child: CachedImage(url: viewModel.imagePath),
           ),
         ),
         SliverFillRemaining(
           child: DefaultTabController(
             length: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TabBar(
-                  tabs: [
-                    Text(
-                      l10n.pokemonDetailsTabAboutLabel,
-                      style: AppFonts.robotoSemiBold(22, AppColors.black),
-                    ),
-                    Text(
-                      l10n.pokemonDetailsTabStatsLabel,
-                      style: AppFonts.robotoSemiBold(22, AppColors.black),
-                    ),
-                  ],
+            child: Container(
+              decoration: const BoxDecoration(
+                color: AppColors.lightBlue,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
                 ),
-                Expanded(
-                  child: TabBarView(
-                    children: [
-                      _aboutTabBarView(l10n),
-                      _statTabBarView(),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TabBar(
+                    labelColor: AppColors.black,
+                    indicatorColor: Colors.transparent,
+                    labelStyle: AppFonts.robotoSemiBold(20),
+                    unselectedLabelStyle: AppFonts.robotoNormal(20),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    tabs: [
+                      Text(
+                        l10n.pokemonDetailsTabAboutLabel,
+                      ),
+                      Text(
+                        l10n.pokemonDetailsTabStatsLabel,
+                      ),
                     ],
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: TabBarView(
+                      children: [
+                        _aboutTabBarView(l10n),
+                        _statTabBarView(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -18,14 +18,14 @@ class PokemonTypeItem extends StatelessWidget {
       margin: const EdgeInsets.all(4),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(
-        color: AppColors.lightBlue02,
+        color: AppColors.blue,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Text(
         viewModel.typeName,
         style: AppFonts.robotoNormal(
           16,
-          AppColors.black,
+          AppColors.white,
         ),
       ),
     );
