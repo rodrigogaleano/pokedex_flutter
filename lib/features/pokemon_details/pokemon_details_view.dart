@@ -143,12 +143,15 @@ class PokemonDetailsView extends StatelessWidget {
   Widget _aboutTabBarView(l10n) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
-      child: Column(
+      child: ListView(
+        physics: const NeverScrollableScrollPhysics(),
         children: [
-          Wrap(
-            children: viewModel.pokemonTypeList.map((viewModel) {
-              return PokemonTypeItem(viewModel: viewModel);
-            }).toList(),
+          Center(
+            child: Wrap(
+              children: viewModel.pokemonTypeList.map((viewModel) {
+                return PokemonTypeItem(viewModel: viewModel);
+              }).toList(),
+            ),
           ),
           const SizedBox(height: 16),
           Row(
