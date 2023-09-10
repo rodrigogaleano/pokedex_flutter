@@ -34,7 +34,6 @@ class PokemonDetailsView extends StatelessWidget {
     final l10n = Localize.instance.l10n;
 
     return Scaffold(
-      backgroundColor: AppColors.darkBlue,
       body: AnimatedBuilder(
         animation: viewModel,
         builder: (_, __) {
@@ -80,11 +79,11 @@ class PokemonDetailsView extends StatelessWidget {
         SliverToBoxAdapter(
           child: Container(
             padding: const EdgeInsets.all(20),
-            child: Center(
-              child: CachedImage(
-                url: viewModel.imagePath,
-                width: 128,
-              ),
+            color: AppColors.darkBlue,
+            child: CachedImage(
+              url: viewModel.imagePath,
+              height: 128,
+              fit: BoxFit.contain,
             ),
           ),
         ),
@@ -93,7 +92,6 @@ class PokemonDetailsView extends StatelessWidget {
             length: 2,
             child: Container(
               decoration: const BoxDecoration(
-                color: AppColors.lightBlue,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(16),
                   topRight: Radius.circular(16),

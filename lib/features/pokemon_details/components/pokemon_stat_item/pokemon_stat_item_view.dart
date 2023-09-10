@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../support/style/app_colors.dart';
+
 abstract class PokemonStatItemViewModelProtocol {
   String get name;
   double get statPercentage;
@@ -26,6 +28,8 @@ class PokemonStatItemView extends StatelessWidget {
               Expanded(
                 child: LinearProgressIndicator(
                   value: viewModel.statPercentage,
+                  color: AppColors.blue,
+                  backgroundColor: AppColors.lightBlue,
                 ),
               ),
             ],
