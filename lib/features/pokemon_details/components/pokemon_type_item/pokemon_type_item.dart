@@ -18,7 +18,7 @@ class PokemonTypeItem extends StatelessWidget {
       margin: const EdgeInsets.all(4),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(
-        color: AppColors.darkBlue,
+        color: AppColors.blue,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Text(

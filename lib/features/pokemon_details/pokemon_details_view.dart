@@ -5,6 +5,7 @@ import '../../support/components/screen_placeholder.dart';
 import '../../support/style/app_colors.dart';
 import '../../support/style/app_fonts.dart';
 import '../../support/utils/localize.dart';
+import 'components/pokemon_details_loading_placeholder.dart';
 import 'components/pokemon_info_item/pokemon_info_item_view.dart';
 import 'components/pokemon_stat_item/pokemon_stat_item_view.dart';
 import 'components/pokemon_type_item/pokemon_type_item.dart';
@@ -70,11 +71,7 @@ class PokemonDetailsView extends StatelessWidget {
 
   List<Widget> _bodyWidget(l10n) {
     if (viewModel.isLoading) {
-      return [
-        const SliverFillRemaining(
-          child: Center(child: CircularProgressIndicator()),
-        ),
-      ];
+      return [const PokemonDetailsLoadingPlaceholder()];
     }
 
     if (viewModel.errorMessage.isNotEmpty) {
@@ -131,7 +128,7 @@ class PokemonDetailsView extends StatelessWidget {
                   child: TabBarView(
                     children: [
                       _aboutTabBarView(l10n),
-                      _statTabBarView(),
+                      _statTabBarView,
                     ],
                   ),
                 ),
@@ -174,15 +171,18 @@ class PokemonDetailsView extends StatelessWidget {
     );
   }
 
-  Widget _statTabBarView() {
-    return ListView.builder(
-      itemCount: viewModel.pokemonStatList.length,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (_, index) {
-        final pokemonStatViewModel = viewModel.pokemonStatList[index];
+  Widget get _statTabBarView {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: ListView.builder(
+        itemCount: viewModel.pokemonStatList.length,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (_, index) {
+          final pokemonStatViewModel = viewModel.pokemonStatList[index];
 
-        return PokemonStatItemView(viewModel: pokemonStatViewModel);
-      },
+          return PokemonStatItemView(viewModel: pokemonStatViewModel);
+        },
+      ),
     );
   }
 }

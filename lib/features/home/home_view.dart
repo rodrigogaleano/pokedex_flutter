@@ -54,7 +54,7 @@ class HomeView extends StatelessWidget {
             opacity: viewModel.isFloatingButtonVisible ? 1.0 : 0.0,
             duration: const Duration(milliseconds: 500),
             child: FloatingActionButton(
-              backgroundColor: AppColors.darkBlue,
+              backgroundColor: AppColors.blue,
               onPressed: viewModel.didTapBackToTop,
               child: const Icon(Icons.arrow_upward),
             ),
