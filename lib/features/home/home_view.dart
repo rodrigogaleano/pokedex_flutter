@@ -11,8 +11,11 @@ abstract class HomeViewModelProtocol extends ChangeNotifier {
   bool get isLoading;
   bool get isLoadingMore;
   String get errorMessage;
+  bool get isFloatingButtonVisible;
   ScrollController get scrollController;
   List<PokemonItemViewModelProtocol> get pokemonsViewModels;
+
+  void didTapBackToTop();
 }
 
 class HomeView extends StatelessWidget {
@@ -24,32 +27,39 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = Localize.instance.l10n;
 
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: AnimatedBuilder(
-            animation: viewModel,
-            builder: (_, __) {
-              return CustomScrollView(
-                controller: viewModel.scrollController,
-                slivers: [
-                  SliverAppBar(
-                    title: Text(
-                      l10n.appTitle,
-                      style: AppFonts.robotoBold(32, AppColors.black),
+    return AnimatedBuilder(
+        animation: viewModel,
+        builder: (_, __) {
+          return Scaffold(
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: CustomScrollView(
+                  controller: viewModel.scrollController,
+                  slivers: [
+                    SliverAppBar(
+                      title: Text(
+                        l10n.appTitle,
+                        style: AppFonts.robotoBold(32, AppColors.black),
+                      ),
+                      centerTitle: false,
                     ),
-                    centerTitle: false,
-                  ),
-                  _bodyWidget(l10n),
-                  SliverToBoxAdapter(child: _loadingMoreWidget),
-                ],
-              );
-            },
-          ),
-        ),
-      ),
-    );
+                    _bodyWidget(l10n),
+                    SliverToBoxAdapter(child: _loadingMoreWidget),
+                  ],
+                ),
+              ),
+            ),
+            floatingActionButton: AnimatedOpacity(
+              opacity: viewModel.isFloatingButtonVisible ? 1.0 : 0.0,
+              duration: const Duration(milliseconds: 500),
+              child: FloatingActionButton(
+                onPressed: viewModel.didTapBackToTop,
+                child: const Icon(Icons.arrow_upward),
+              ),
+            ),
+          );
+        });
   }
 
   Widget _bodyWidget(l10n) {

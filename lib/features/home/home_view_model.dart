@@ -1,4 +1,4 @@
-import 'package:flutter/src/widgets/scroll_controller.dart';
+import 'package:flutter/material.dart';
 
 import 'components/pokemon_item/pokemon_item_view.dart';
 import 'components/pokemon_item/pokemon_item_view_model.dart';
@@ -11,6 +11,7 @@ class HomeViewModel extends HomeViewProtocol implements PokemonItemDelegate {
   bool _isLoading = false;
   String _errorMessage = '';
   bool _isLoadingMore = false;
+  bool _isFloatingButtonVisible = false;
 
   final int _pokemonsPerPage = 20;
   final List<Pokemon> _pokemons = [];
@@ -29,6 +30,9 @@ class HomeViewModel extends HomeViewProtocol implements PokemonItemDelegate {
 
   @override
   String get errorMessage => _errorMessage;
+
+  @override
+  bool get isFloatingButtonVisible => _isFloatingButtonVisible;
 
   @override
   ScrollController get scrollController => _scrollController;
@@ -54,6 +58,11 @@ class HomeViewModel extends HomeViewProtocol implements PokemonItemDelegate {
   @override
   void didTapPokemon(int pokemonId) {
     onTapPokemon?.call(pokemonId);
+  }
+
+  @override
+  void didTapBackToTop() {
+    _scrollController.animateTo(0, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
   }
 
   void _handleGetPokemonsSuccess(pokemons) {
@@ -85,6 +94,16 @@ class HomeViewModel extends HomeViewProtocol implements PokemonItemDelegate {
         !_isLoadingMore) {
       _setLoadingMore(true);
       getPokemons();
+    }
+
+    if (_scrollController.offset >= 200 && !_isFloatingButtonVisible) {
+      _isFloatingButtonVisible = true;
+      notifyListeners();
+    }
+
+    if (_scrollController.offset < 200 && _isFloatingButtonVisible) {
+      _isFloatingButtonVisible = false;
+      notifyListeners();
     }
   }
 }
