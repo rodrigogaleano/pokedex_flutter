@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../support/style/app_colors.dart';
+import '../../../../support/style/app_fonts.dart';
 
 abstract class PokemonStatItemViewModelProtocol {
   String get name;
@@ -22,7 +23,10 @@ class PokemonStatItemView extends StatelessWidget {
             children: [
               SizedBox(
                 width: constraints.maxWidth * 0.2,
-                child: Text(viewModel.name),
+                child: Text(
+                  viewModel.name,
+                  style: AppFonts.robotoNormal(16),
+                ),
               ),
               const SizedBox(width: 8),
               Expanded(
