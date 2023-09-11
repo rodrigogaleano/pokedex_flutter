@@ -1,6 +1,6 @@
 import '../../../api/routes/pokemon_routes.dart';
-import '../../../models/pokemon.dart';
 import '../../../models/server_error.dart';
+import '../models/pokemon.dart';
 
 typedef Success = void Function(List<Pokemon> pokemons);
 typedef Failure = void Function(ServerError error);

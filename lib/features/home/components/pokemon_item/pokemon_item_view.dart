@@ -7,6 +7,8 @@ import '../../../../support/style/app_fonts.dart';
 abstract class PokemonItemViewModelProtocol {
   String get name;
   String get imagePath;
+
+  void didTapPokemon(int pokemonId);
 }
 
 class PokemonItemView extends StatelessWidget {
@@ -21,31 +23,34 @@ class PokemonItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: AppColors.lightBlue02,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            child: CachedImage(
-              url: '${viewModel.imagePath}$pokemonId.png',
+    return InkWell(
+      onTap: () => viewModel.didTapPokemon(pokemonId),
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: AppColors.lightBlue,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Expanded(
+              child: CachedImage(
+                url: '${viewModel.imagePath}$pokemonId.png',
+              ),
             ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            viewModel.name,
-            style: AppFonts.robotoSemiBold(18, AppColors.black),
-            overflow: TextOverflow.ellipsis,
-          ),
-          Text(
-            pokemonId.toString().padLeft(3, '0'),
-            style: AppFonts.robotoLight(16, AppColors.black),
-          ),
-        ],
+            const SizedBox(height: 8),
+            Text(
+              viewModel.name,
+              style: AppFonts.robotoSemiBold(18, AppColors.black),
+              overflow: TextOverflow.ellipsis,
+            ),
+            Text(
+              pokemonId.toString().padLeft(3, '0'),
+              style: AppFonts.robotoLight(16, AppColors.black),
+            ),
+          ],
+        ),
       ),
     );
   }

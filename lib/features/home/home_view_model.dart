@@ -1,16 +1,17 @@
-import 'package:flutter/src/widgets/scroll_controller.dart';
+import 'package:flutter/material.dart';
 
-import '../../models/pokemon.dart';
 import 'components/pokemon_item/pokemon_item_view.dart';
 import 'components/pokemon_item/pokemon_item_view_model.dart';
 import 'home_view_controller.dart';
+import 'models/pokemon.dart';
 import 'use_cases/get_pokemons_use_case.dart';
 
-class HomeViewModel extends HomeViewProtocol {
+class HomeViewModel extends HomeViewProtocol implements PokemonItemDelegate {
   int _currentPage = 0;
   bool _isLoading = false;
   String _errorMessage = '';
   bool _isLoadingMore = false;
+  bool _isFloatingButtonVisible = false;
 
   final int _pokemonsPerPage = 20;
   final List<Pokemon> _pokemons = [];
@@ -31,12 +32,15 @@ class HomeViewModel extends HomeViewProtocol {
   String get errorMessage => _errorMessage;
 
   @override
+  bool get isFloatingButtonVisible => _isFloatingButtonVisible;
+
+  @override
   ScrollController get scrollController => _scrollController;
 
   @override
   List<PokemonItemViewModelProtocol> get pokemonsViewModels {
     return _pokemons.map((pokemon) {
-      return PokemonItemViewModel(pokemon: pokemon);
+      return PokemonItemViewModel(pokemon: pokemon, delegate: this);
     }).toList();
   }
 
@@ -49,6 +53,16 @@ class HomeViewModel extends HomeViewProtocol {
       success: (pokemons) => _handleGetPokemonsSuccess(pokemons),
       failure: (error) => _handleGetPokemonsFailure(error.description),
     );
+  }
+
+  @override
+  void didTapPokemon(int pokemonId) {
+    onTapPokemon?.call(pokemonId);
+  }
+
+  @override
+  void didTapBackToTop() {
+    _scrollController.animateTo(0, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
   }
 
   void _handleGetPokemonsSuccess(pokemons) {
@@ -80,6 +94,16 @@ class HomeViewModel extends HomeViewProtocol {
         !_isLoadingMore) {
       _setLoadingMore(true);
       getPokemons();
+    }
+
+    if (_scrollController.offset >= 200 && !_isFloatingButtonVisible) {
+      _isFloatingButtonVisible = true;
+      notifyListeners();
+    }
+
+    if (_scrollController.offset < 200 && _isFloatingButtonVisible) {
+      _isFloatingButtonVisible = false;
+      notifyListeners();
     }
   }
 }

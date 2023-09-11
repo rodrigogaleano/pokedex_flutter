@@ -7,5 +7,10 @@
     "requestError": "Aconteceu um erro inesperado, estamos trabalhando nisso!",
     "timeoutError": "O tempo de requisição esgotou, tente novamente mais tarde.",
 
-    "pokemonsEmptyLabel": "Nenhum Pokémon encontrado"
+    "pokemonsEmptyLabel": "Nenhum Pokémon encontrado",
+
+    "pokemonDetailsTabAboutLabel": "Sobre",
+    "pokemonDetailsTabStatsLabel": "Estatísticas",
+    "pokemonDetailsWeightLabel": "Peso",
+    "pokemonDetailsHeightLabel": "Altura"
 }

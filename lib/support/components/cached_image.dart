@@ -5,6 +5,7 @@ import '../style/app_assets.dart';
 
 class CachedImage extends StatelessWidget {
   final String url;
+  final BoxFit fit;
   final double? width;
   final double? height;
   final double borderRadius;
@@ -15,6 +16,7 @@ class CachedImage extends StatelessWidget {
     this.width,
     this.height,
     this.borderRadius = 0,
+    this.fit = BoxFit.cover,
   });
 
   @override
@@ -27,7 +29,7 @@ class CachedImage extends StatelessWidget {
           child: Image(
             width: width,
             height: height,
-            fit: BoxFit.cover,
+            fit: fit,
             image: imageProvider,
           ),
         );
