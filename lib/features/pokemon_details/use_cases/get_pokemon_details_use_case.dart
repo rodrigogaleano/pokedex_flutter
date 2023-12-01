@@ -10,7 +10,7 @@ abstract class GetPokemonDetailsUseCaseProtocol {
 }
 
 class GetPokemonDetailsUseCase extends GetPokemonDetailsUseCaseProtocol {
-  final PokemonRoutes routes;
+  final PokemonRoutesProtocol routes;
 
   GetPokemonDetailsUseCase({required this.routes});
 

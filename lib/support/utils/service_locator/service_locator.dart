@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 
 import '../../../features/home/di/home_module.dart';
+import '../../../features/pokemon_details/di/pokemon_details_module.dart';
 import 'app_module.dart';
 import 'common_module.dart';
 
@@ -40,6 +41,7 @@ void initializeDependencies() {
   final appModules = <AppModule>[
     HomeModule(),
     CommonsModule(),
+    PokemonDetailsModule(),
   ];
 
   for (final module in appModules) {

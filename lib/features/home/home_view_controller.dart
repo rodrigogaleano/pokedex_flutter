@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../support/utils/service_locator/service_locator.dart';
-import '../pokemon_details/di/pokemon_details_factory.dart';
+import '../pokemon_details/di/pokemon_details_module.dart';
 import 'home_view.dart';
 
 abstract class HomeProtocol extends HomeViewModelProtocol {
@@ -36,7 +36,7 @@ class _HomeViewControllerState extends State<HomeViewController> {
     viewModel.onTapPokemon = (pokemonId) {
       Navigator.pushNamed(
         context,
-        PokemonDetailsFactory.pokemonDetailsRoute,
+        PokemonDetailsModule.pokemonDetailsRoute,
         arguments: pokemonId,
       );
     };
