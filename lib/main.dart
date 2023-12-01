@@ -5,20 +5,15 @@ import 'package:flutter_gen/gen_l10n/localization.dart';
 import 'router/mobile_router.dart';
 import 'support/style/app_themes.dart';
 import 'support/utils/localize.dart';
+import 'support/utils/service_locator/service_locator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  initializeDependencies();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  runApp(
+    MaterialApp(
       theme: AppThemes.theme,
       routes: MobileRouter.routes,
       debugShowCheckedModeBanner: false,
@@ -26,6 +21,6 @@ class MyApp extends StatelessWidget {
       supportedLocales: Localization.supportedLocales,
       localizationsDelegates: Localization.localizationsDelegates,
       onGenerateTitle: (context) => Localize.instance.of(context).appTitle,
-    );
-  }
+    ),
+  );
 }

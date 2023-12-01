@@ -1,38 +1,39 @@
 import 'package:flutter/material.dart';
 
+import '../../support/utils/service_locator/service_locator.dart';
 import '../pokemon_details/di/pokemon_details_factory.dart';
 import 'home_view.dart';
 
-abstract class HomeViewProtocol extends HomeViewModelProtocol {
+abstract class HomeProtocol extends HomeViewModelProtocol {
   void getPokemons();
 
   void Function(int pokemonId)? onTapPokemon;
 }
 
 class HomeViewController extends StatefulWidget {
-  final HomeViewProtocol viewModel;
-
-  const HomeViewController({required this.viewModel, super.key});
+  const HomeViewController({super.key});
 
   @override
   State<HomeViewController> createState() => _HomeViewControllerState();
 }
 
 class _HomeViewControllerState extends State<HomeViewController> {
+  final viewModel = ServiceLocator.get<HomeProtocol>();
+
   @override
   void initState() {
     super.initState();
     _bind();
-    widget.viewModel.getPokemons();
+    viewModel.getPokemons();
   }
 
   @override
   Widget build(BuildContext context) {
-    return HomeView(viewModel: widget.viewModel);
+    return HomeView(viewModel: viewModel);
   }
 
   void _bind() {
-    widget.viewModel.onTapPokemon = (pokemonId) {
+    viewModel.onTapPokemon = (pokemonId) {
       Navigator.pushNamed(
         context,
         PokemonDetailsFactory.pokemonDetailsRoute,

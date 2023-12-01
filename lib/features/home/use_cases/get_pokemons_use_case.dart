@@ -15,7 +15,7 @@ abstract class GetPokemonsUseCaseProtocol {
 }
 
 class GetPokemonsUseCase extends GetPokemonsUseCaseProtocol {
-  final PokemonRoutes route;
+  final PokemonRoutesProtocol route;
 
   GetPokemonsUseCase({required this.route});
 

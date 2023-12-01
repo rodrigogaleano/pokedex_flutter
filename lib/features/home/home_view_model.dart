@@ -6,7 +6,7 @@ import 'home_view_controller.dart';
 import 'models/pokemon.dart';
 import 'use_cases/get_pokemons_use_case.dart';
 
-class HomeViewModel extends HomeViewProtocol implements PokemonItemDelegate {
+class HomeViewModel extends HomeProtocol implements PokemonItemDelegate {
   int _currentPage = 0;
   bool _isLoading = false;
   String _errorMessage = '';

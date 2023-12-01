@@ -4,6 +4,7 @@ import '../../support/components/screen_placeholder.dart';
 import '../../support/style/app_colors.dart';
 import '../../support/style/app_fonts.dart';
 import '../../support/utils/localize.dart';
+import '../../support/utils/service_locator/service_locator.dart';
 import 'components/home_loading_placeholder.dart';
 import 'components/pokemon_item/pokemon_item_view.dart';
 
@@ -20,13 +21,12 @@ abstract class HomeViewModelProtocol extends ChangeNotifier {
 
 class HomeView extends StatelessWidget {
   final HomeViewModelProtocol viewModel;
+  final l10n = ServiceLocator.get<LocalizeProtocol>().l10n;
 
-  const HomeView({required this.viewModel, super.key});
+  HomeView({required this.viewModel, super.key});
 
   @override
   Widget build(BuildContext context) {
-    final l10n = Localize.instance.l10n;
-
     return AnimatedBuilder(
       animation: viewModel,
       builder: (_, __) {
@@ -44,7 +44,7 @@ class HomeView extends StatelessWidget {
                     ),
                     centerTitle: false,
                   ),
-                  _bodyWidget(l10n),
+                  _bodyWidget,
                   SliverToBoxAdapter(child: _loadingMoreWidget),
                 ],
               ),
@@ -64,7 +64,7 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _bodyWidget(l10n) {
+  Widget get _bodyWidget {
     if (viewModel.isLoading) {
       return const HomeLoadingPlaceholder();
     }
